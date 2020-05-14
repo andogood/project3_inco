@@ -5,8 +5,10 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mysql = require("mysql");
 var bodyParser = require("body-parser");
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var indexRouter = require("./routes/index");
+var newRouter = require("./routes/new");
 var usersRouter = require("./routes/users");
 
 var app = express();
@@ -22,6 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/new", newRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
@@ -48,6 +51,8 @@ const db = mysql.createConnection({
   multipleStatements: true,
 });
 
+// db.execute("SELECT * FROM schedule");
+
 // Connect
 db.connect((err) => {
   if (err) {
@@ -55,5 +60,16 @@ db.connect((err) => {
   }
   console.log("MySql Connected...");
 });
+
+//Select all customers and return the result object:
+// db.query("SELECT * FROM schedule", function (err, result, fields) {
+//   if (err) throw err;
+//   console.log(result);
+// });
+
+// // POST /login gets urlencoded bodies
+// app.post("/new", urlencodedParser, function (req, res) {
+//   res.send("Schedule Added to Database, " + req.body.username);
+// });
 
 module.exports = app;

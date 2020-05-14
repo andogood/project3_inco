@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  include templates/header.pug  
+  h1= title
+
+  #form
+    form#homepageform(method='POST' action='/')
+      label(for='username') Username:
+      br
+      input#username(type='text', name='username', placeholder='Ex. John123')
+      br
+      label(for='weekday') Day of the Week:
+      br
+      select#weekday(name='weekday', placeholder='Monday')
+        option(value='monday') Monday
+        option(value='tuesday') Tuesday
+        option(value='wednesday') Wednesday
+        option(value='thursday') Thursday
+        option(value='friday') Friday
+        option(value='saturday') Saturday
+        option(value='sunday') Sunday
+      br
+      label(for='starttime') Start Time:
+      br
+      input#starttime(type='time', name='starttime')
+      br
+      label(for='endtime') End Time:
+      br
+      input#endtime(type='time', name='endtime')
+      br
+      input(type='submit', value='send')
